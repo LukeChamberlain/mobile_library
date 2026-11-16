@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
+import type { Session } from '@supabase/supabase-js';
 import {
   ActivityIndicator,
   Image,
@@ -10,6 +11,8 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { AuthScreen } from '@/components/auth-screen';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase';
 
 type Book = {
   id: string;
@@ -39,11 +42,29 @@ const LIBRARY_KEY = 'mobile-library-books';
 const GOOGLE_BOOKS_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
 export default function HomeScreen() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [checkingSession, setCheckingSession] = useState(isSupabaseConfigured);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Book[]>([]);
   const [library, setLibrary] = useState<Book[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (!supabase) {
+      setCheckingSession(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setCheckingSession(false);
+    });
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+    });
+    return () => authListener.subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     AsyncStorage.getItem(LIBRARY_KEY)
@@ -129,10 +150,23 @@ export default function HomeScreen() {
     void saveLibrary(library.filter((book) => book.id !== bookId));
   }
 
+  if (checkingSession) {
+    return <View style={styles.loadingScreen}><ActivityIndicator color="#315c48" /></View>;
+  }
+
+  if (!session) return <AuthScreen />;
+
   return (
     <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
-      <Text style={styles.eyebrow}>YOUR PERSONAL READING SPACE</Text>
-      <Text style={styles.title}>Mobile Library</Text>
+      <View style={styles.header}>
+        <View style={styles.headerTitle}>
+          <Text style={styles.eyebrow}>YOUR PERSONAL READING SPACE</Text>
+          <Text style={styles.title}>Mobile Library</Text>
+        </View>
+        <Pressable onPress={() => { void supabase?.auth.signOut(); }}>
+          <Text style={styles.signOut}>Sign out</Text>
+        </Pressable>
+      </View>
       <Text style={styles.subtitle}>Find a book and start building your shelf.</Text>
 
       <View style={styles.searchRow}>
@@ -211,9 +245,13 @@ function BookCover({ book }: { book: Book }) {
 }
 
 const styles = StyleSheet.create({
+  loadingScreen: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f4ef' },
   screen: { flexGrow: 1, backgroundColor: '#f5f4ef', paddingTop: 72, paddingHorizontal: 22, paddingBottom: 40 },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
+  headerTitle: { flex: 1 },
   eyebrow: { color: '#617367', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 },
   title: { color: '#1f352a', fontSize: 34, fontWeight: '700', marginTop: 8 },
+  signOut: { color: '#315c48', fontSize: 14, fontWeight: '700' },
   subtitle: { color: '#626a63', fontSize: 16, marginTop: 8, marginBottom: 24 },
   searchRow: { flexDirection: 'row', gap: 10 },
   input: { flex: 1, minWidth: 0, height: 50, borderRadius: 12, backgroundColor: '#fff', paddingHorizontal: 15, color: '#1f352a', fontSize: 16 },
