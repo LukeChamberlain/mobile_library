@@ -92,34 +92,28 @@ flowchart LR
 
 ## Initial daily goals through the December 16, 2026 deadline
 
-| Date        | Goal                                                                                       |
-| ----------- | ------------------------------------------------------------------------------------------ |
-| Wed, Nov 18 | Write down the project scope, MVP, and initial system/data diagrams.                       |
-| Thu, Nov 19 | Review the current app flow and make a short list of gaps to the MVP.                      |
-| Fri, Nov 20 | Confirm the Supabase schema and apply the required book-library migrations.                |
-| Sat, Nov 21 | Try several searches and note where results or Wikidata matches are incomplete.            |
-| Sun, Nov 22 | Catch up on notes and adjust the remaining work to the course schedule.                    |
-| Mon, Nov 23 | Improve the search-to-overview flow and make the back action clear.                        |
-| Tue, Nov 24 | Improve loading, no-match, and error states on the overview page.                          |
-| Wed, Nov 25 | Confirm saving, loading, and removing books works for a signed-in account.                 |
-| Thu, Nov 26 | Review the user-library fields and decide how reading status and ratings should work.      |
-| Fri, Nov 27 | Add or refine reading status and rating controls.                                          |
-| Sat, Nov 28 | Sketch a short preference questionnaire about themes, genre, difficulty, and length.       |
-| Sun, Nov 29 | Refine the preference questions and identify which answers should affect recommendations.  |
-| Mon, Nov 30 | Add database fields/tables for user preference feedback.                                   |
-| Tue, Dec 1  | Create an explainable, rule-based recommendation approach as the first baseline.           |
-| Wed, Dec 2  | Implement a first recommendation list using saved books and preference answers.            |
-| Thu, Dec 3  | Add a short “why this was recommended” explanation for each result.                        |
-| Fri, Dec 4  | Try the recommendation flow with a few different sample reader profiles.                   |
-| Sat, Dec 5  | Review which book metadata is available and decide what can power matching.                |
-| Sun, Dec 6  | Catch up, write down open questions, and keep the scope realistic.                         |
-| Mon, Dec 7  | If the baseline works, sketch the vector-search data flow and required schema.             |
-| Tue, Dec 8  | Prototype vector storage/search with a small set of permitted book facts, if time allows.  |
-| Wed, Dec 9  | Compare the prototype's results with the rule-based baseline; document limitations.        |
-| Thu, Dec 10 | Check account ownership rules and make sure users only access their own library.           |
-| Fri, Dec 11 | Fix the most visible bugs from the search, overview, library, and recommendation flows.    |
-| Sat, Dec 12 | Review the layout on a narrow phone-sized screen and fix usability issues.                 |
-| Sun, Dec 13 | Catch up and prepare a short end-to-end demo script.                                       |
-| Mon, Dec 14 | Run through the demo from sign-in to recommendation and note anything that breaks.         |
-| Tue, Dec 15 | Finish README/design notes, confirm the GitHub repository is public, and prepare its link. |
-| Wed, Dec 16 | Final review and submit the public GitHub link to `design.md` with the project.            |
+| Date        | Goal                                                                                      |
+| ----------- | ----------------------------------------------------------------------------------------- |
+| Wed, Nov 18 | Write down the project scope, MVP, and initial system/data diagrams.                      |
+| Thu, Nov 19 | Review the current app flow and make a short list of gaps to the MVP.                     |
+| Fri, Nov 20 | Confirm the Supabase schema and apply the required book-library migrations.               |
+| Sat, Nov 21 | Try several searches and note where results or Wikidata matches are incomplete.           |
+| Sun, Nov 22 | Catch up on notes and adjust the remaining work to the course schedule.                   |
+| Mon, Nov 23 | Improve the search-to-overview flow and make the back action clear.                       |
+| Tue, Nov 24 | Improve loading, no-match, and error states on the overview page.                         |
+| Wed, Nov 25 | Confirm saving, loading, and removing books works for a signed-in account.                |
+| Thu, Nov 26 | Review the user-library fields and decide how reading status and ratings should work.     |
+| Fri, Nov 27 | Add or refine reading status and rating controls.                                         |
+| Sat, Nov 28 | Sketch a short preference questionnaire about themes, genre, difficulty, and length.      |
+| Sun, Nov 29 | Refine the preference questions and identify which answers should affect recommendations. |
+| Mon, Nov 30 | Add database fields/tables for user preference feedback.                                  |
+| Tue, Dec 1  | Create an explainable, rule-based recommendation approach as the first baseline.          |
+| Wed, Dec 2  | Implement a first recommendation list using saved books and preference answers.           |
+| Thu, Dec 3  | Add a short “why this was recommended” explanation for each result.                       |
+| Fri, Dec 4  | Try the recommendation flow with a few different sample reader profiles.                  |
+| Sat, Dec 5  | Review which book metadata is available and decide what can power matching.               |
+| Sun, Dec 6  | Catch up, write down open questions, and keep the scope realistic.                        |
+| Mon, Dec 7  | If the baseline works, sketch the vector-search data flow and required schema.            |
+| Tue, Dec 8  | Prototype vector storage/search with a small set of permitted book facts, if time allows. |
+| Wed, Dec 9  | Compare the prototype's results with the rule-based baseline; document limitations.       |
+| Thu, Dec 10 | Check account ownership rules and make sure users only access their own library.          |
