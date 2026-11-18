@@ -34,6 +34,7 @@ export async function searchGoogleBooks(query: string): Promise<{ books: Book[];
       authors,
       description: volumeInfo?.description,
       thumbnail: cover.replace('http://', 'https://'),
+      categories: volumeInfo?.categories ?? [],
     }];
   });
 

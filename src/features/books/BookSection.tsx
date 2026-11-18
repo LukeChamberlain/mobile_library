@@ -6,10 +6,12 @@ type BookSectionProps = {
   library: Book[];
   onAdd?: (book: Book) => void;
   onRemove?: (id: string) => void;
+  onSelect?: (book: Book) => void;
   showCount?: boolean;
+  disableActions?: boolean;
 };
 
-export function BookSection({ title, books, library, onAdd, onRemove, showCount = false }: BookSectionProps) {
+export function BookSection({ title, books, library, onAdd, onRemove, onSelect, showCount = false, disableActions = false }: BookSectionProps) {
   return (
     <section className="book-section">
       <div className="section-heading">
@@ -26,8 +28,9 @@ export function BookSection({ title, books, library, onAdd, onRemove, showCount 
                   ? <img className="cover" src={book.thumbnail} alt={`Cover of ${book.title}`} loading="lazy" />
                   : <div className="cover placeholder">M</div>}
                 <div className="book-info"><h3>{book.title}</h3><p>{book.authors.join(', ')}</p></div>
-                {onAdd && <button className={`small-button ${saved ? 'saved' : ''}`} onClick={() => onAdd(book)} disabled={saved}>{saved ? 'Added' : 'Add'}</button>}
-                {onRemove && <button className="remove-button" onClick={() => onRemove(book.id)}>Remove</button>}
+                {onSelect && <button className="small-button overview-button" onClick={() => onSelect(book)}>Overview</button>}
+                {onAdd && <button className={`small-button ${saved ? 'saved' : ''}`} onClick={() => onAdd(book)} disabled={saved || disableActions}>{saved ? 'Added' : 'Add'}</button>}
+                {onRemove && <button className="remove-button" onClick={() => onRemove(book.id)} disabled={disableActions}>Remove</button>}
               </article>
             );
           })}

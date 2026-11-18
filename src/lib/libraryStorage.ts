@@ -1,16 +1,16 @@
 import type { Book } from '../types/book';
 
-const LIBRARY_KEY = 'mobile-library-books';
+const LEGACY_LIBRARY_KEY = 'mobile-library-books';
 
-export function loadLibrary(): Book[] {
+export function loadLegacyLibrary(): Book[] {
   try {
-    const stored = localStorage.getItem(LIBRARY_KEY);
+    const stored = localStorage.getItem(LEGACY_LIBRARY_KEY);
     return stored ? (JSON.parse(stored) as Book[]) : [];
   } catch {
     return [];
   }
 }
 
-export function storeLibrary(books: Book[]): void {
-  localStorage.setItem(LIBRARY_KEY, JSON.stringify(books));
+export function clearLegacyLibrary(): void {
+  localStorage.removeItem(LEGACY_LIBRARY_KEY);
 }
